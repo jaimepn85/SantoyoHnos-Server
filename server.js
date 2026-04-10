@@ -55,7 +55,7 @@ app.post('/upload', upload.single('imagen'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No se recibió ningún archivo.' });
   }
-  const url = `http://localhost:${PORT}/materiales/${req.file.filename}`;
+ const url = `${req.protocol}://${req.get('host')}/materiales/${req.file.filename}`;
   console.log(`[UPLOAD] ${req.file.filename} → ${url}`);
   res.json({ url, filename: req.file.filename });
 });
