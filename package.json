@@ -1,15 +1,13 @@
 {
-  "name": "santoyo-hnos-server",
-  "version": "1.0.0",
-  "description": "Servidor local para gestión de materiales de vinipiel",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.22.1",
-    "multer": "^1.4.5-lts.1"
-  },
-  "type": "commonjs"
+    "name": "santoyo-server",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.22.1",
+        "cors": "^2.8.5",
+        "multer": "^1.4.5-lts.1"
+    }
 }
