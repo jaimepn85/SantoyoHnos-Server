@@ -5,8 +5,7 @@ const path    = require('path');
 const fs      = require('fs');
 
 const app  = express();
-const PORT = 3000;
-
+const PORT = process.env.PORT || 3000;
 // ── Crear carpeta /materiales si no existe ──
 const materialesDir = path.join(__dirname, 'materiales');
 if (!fs.existsSync(materialesDir)) fs.mkdirSync(materialesDir);
