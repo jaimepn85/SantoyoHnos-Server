@@ -54,7 +54,13 @@ app.post('/upload', upload.single('imagen'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: 'No se recibió ningún archivo.' });
   }
- const url = `${req.protocol}://${req.get('host')}/materiales/${req.file.filename}`;
+
+  const BASE_URL = process.env.RAILWAY_PUBLIC_DOMAIN
+    ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+    : `http://localhost:${PORT}`;
+
+  const url = `${BASE_URL}/materiales/${req.file.filename}`;
+
   console.log(`[UPLOAD] ${req.file.filename} → ${url}`);
   res.json({ url, filename: req.file.filename });
 });
