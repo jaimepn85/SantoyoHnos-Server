@@ -1,18 +1,38 @@
-{
-  "name": "santoyo-hnos-server",
-  "version": "1.0.0",
-  "description": "Servidor local para gestión de materiales de vinipiel",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.22.1",
-    "multer": "^1.4.5-lts.1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs"
-}
+const express = require('express');
+const multer = require('multer');
+const cors = require('cors');
+
+const app = express();
+
+// 🔥 IMPORTANTE PARA RAILWAY
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Carpeta donde se guardan imágenes
+const upload = multer({ dest: 'materiales/' });
+
+// Servir imágenes públicamente
+app.use('/materiales', express.static('materiales'));
+
+// ✅ Ruta principal (ESTO EVITA TU ERROR)
+app.get('/', (req, res) => {
+  res.send('Servidor funcionando correctamente 🚀');
+});
+
+// Subida de imágenes
+app.post('/upload', upload.single('imagen'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No se subió archivo' });
+  }
+
+  const url = `${req.protocol}://${req.get('host')}/materiales/${req.file.filename}`;
+  res.json({ url });
+});
+
+// Iniciar servidor
+app.listen(PORT, () => {
+  console.log('Servidor corriendo en puerto', PORT);
+});
